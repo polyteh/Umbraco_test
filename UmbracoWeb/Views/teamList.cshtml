@@ -1,0 +1,24 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage<Umbraco.Web.PublishedModels.TeamList>
+@{
+    Layout = "masrter.cshtml";
+}
+@{
+    var teams = Model.Children().Count();
+
+}
+    <ul>
+        @foreach (var item in Model.Children.Where(child=>child.IsDocumentType("team")))
+        {
+
+        <li>@item.Name (@item.Value("StadiumName"))</li>
+
+            
+        }
+    </ul>
+
+<ul>
+    @foreach (var item in Model.Descendants())
+    {
+        <li>@item.Name</li>
+    }
+</ul>

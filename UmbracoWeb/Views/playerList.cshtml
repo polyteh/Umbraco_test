@@ -1,0 +1,16 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoViewPage
+@{
+	Layout = "masrter.cshtml";
+}
+
+@* the fun starts here *@
+
+    <ul>
+        @foreach (var item in Model.Children.Where(child=>child.IsDocumentType("player")))
+        {
+
+        <li>@item.Name @item.Value("PlayerAge")</li>
+
+            
+        }
+    </ul>

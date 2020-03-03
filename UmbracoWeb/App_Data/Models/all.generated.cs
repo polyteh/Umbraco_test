@@ -6,8 +6,8 @@ using  Umbraco.Core.Models;
 using  Umbraco.Core.Models.PublishedContent;
 using  Umbraco.Web;
 using  Umbraco.ModelsBuilder.Embedded;
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "c810f8c00c56bbac")]
-[assembly:System.Reflection.AssemblyVersion("0.0.0.3")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "3f0c13af67cc9e84")]
+[assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
 // FILE: models.generated.cs
@@ -212,7 +212,7 @@ namespace Umbraco.Web.PublishedModels
 
 	/// <summary>Player</summary>
 	[PublishedModel("player")]
-	public partial class Player : PublishedContentModel
+	public partial class Player : PublishedContentModel, IPlayerControls
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -234,11 +234,25 @@ namespace Umbraco.Web.PublishedModels
 		{ }
 
 		// properties
+
+		///<summary>
+		/// Player Age
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		[ImplementPropertyType("playerAge")]
+		public string PlayerAge => global::Umbraco.Web.PublishedModels.PlayerControls.GetPlayerAge(this);
+
+		///<summary>
+		/// Player Name
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		[ImplementPropertyType("playerName")]
+		public string PlayerName => global::Umbraco.Web.PublishedModels.PlayerControls.GetPlayerName(this);
 	}
 
 	/// <summary>Player List</summary>
 	[PublishedModel("playerList")]
-	public partial class PlayerList : PublishedContentModel
+	public partial class PlayerList : PublishedContentModel, IContentControls, IMainImageControl
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
@@ -260,6 +274,20 @@ namespace Umbraco.Web.PublishedModels
 		{ }
 
 		// properties
+
+		///<summary>
+		/// Main Content
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		[ImplementPropertyType("mainContent")]
+		public global::Newtonsoft.Json.Linq.JToken MainContent => global::Umbraco.Web.PublishedModels.ContentControls.GetMainContent(this);
+
+		///<summary>
+		/// Main Image: Choose main image for the page
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		[ImplementPropertyType("mainImage")]
+		public global::Umbraco.Core.Models.PublishedContent.IPublishedContent MainImage => global::Umbraco.Web.PublishedModels.MainImageControl.GetMainImage(this);
 	}
 
 	/// <summary>Error</summary>
@@ -644,6 +672,67 @@ namespace Umbraco.Web.PublishedModels
 		{ }
 
 		// properties
+	}
+
+	// Mixin Content Type with alias "playerControls"
+	/// <summary>Player Controls</summary>
+	public partial interface IPlayerControls : IPublishedContent
+	{
+		/// <summary>Player Age</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		string PlayerAge { get; }
+
+		/// <summary>Player Name</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		string PlayerName { get; }
+	}
+
+	/// <summary>Player Controls</summary>
+	[PublishedModel("playerControls")]
+	public partial class PlayerControls : PublishedContentModel, IPlayerControls
+	{
+		// helpers
+#pragma warning disable 0109 // new is redundant
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		public new const string ModelTypeAlias = "playerControls";
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		public new static IPublishedContentType GetModelContentType()
+			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<PlayerControls, TValue>> selector)
+			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
+#pragma warning restore 0109
+
+		// ctor
+		public PlayerControls(IPublishedContent content)
+			: base(content)
+		{ }
+
+		// properties
+
+		///<summary>
+		/// Player Age
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		[ImplementPropertyType("playerAge")]
+		public string PlayerAge => GetPlayerAge(this);
+
+		/// <summary>Static getter for Player Age</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		public static string GetPlayerAge(IPlayerControls that) => that.Value<string>("playerAge");
+
+		///<summary>
+		/// Player Name
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		[ImplementPropertyType("playerName")]
+		public string PlayerName => GetPlayerName(this);
+
+		/// <summary>Static getter for Player Name</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.5.4")]
+		public static string GetPlayerName(IPlayerControls that) => that.Value<string>("playerName");
 	}
 
 	/// <summary>Folder</summary>

@@ -302,9 +302,8 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\TeamSurfaceController.cs" />
-    <Compile Include="Models\PlayerModel.cs" />
-    <Compile Include="Models\TeamModel.cs" />
+    <Compile Include="Controllers\TeamController.cs" />
+    <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +346,7 @@
     <Content Include="Views\masrter.cshtml" />
     <Content Include="Views\team.cshtml" />
     <Content Include="Views\teamList.cshtml" />
+    <Content Include="Views\playerList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -355,6 +355,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\Models\" />
     <Folder Include="Views\TeamSurface\" />
   </ItemGroup>
   <PropertyGroup>
