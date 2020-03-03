@@ -2,13 +2,5 @@
     @{
     Layout = "masrter.cshtml";
     }
-    <div style="color: @Model.ColourName">
-        @* the fun starts here *@
-        @Model.Title
-        @Model.MainContent
-        <p>Your favourite color is @Model.ColourName</p>
-    </div>
-    @if(Model.ShowImage)
-    {
-    <img src="https://localhost:44314/media/24tdrd4a/cat_2.jfif" title="cat picture">
-    }
+    @Model.Name
+  
