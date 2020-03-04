@@ -200,3 +200,5 @@ D:\Projects\umbraco\UmbracoWeb\UmbracoWeb\obj\Debug\UmbracoWeb.csprojAssemblyRef
 D:\Projects\umbraco\UmbracoWeb\UmbracoWeb\obj\Debug\UmbracoWeb.csproj.CopyComplete
 D:\Projects\umbraco\UmbracoWeb\UmbracoWeb\obj\Debug\UmbracoWeb.dll
 D:\Projects\umbraco\UmbracoWeb\UmbracoWeb\obj\Debug\UmbracoWeb.pdb
+D:\Projects\umbraco\UmbracoWeb\UmbracoWeb\bin\Swashbuckle.Core.dll
+D:\Projects\umbraco\UmbracoWeb\UmbracoWeb\bin\WebActivatorEx.dll
