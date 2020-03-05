@@ -4,13 +4,42 @@
         <name>UmbracoWeb</name>
     </assembly>
     <members>
+        <member name="M:UmbracoWeb.Controllers.TeamController.GetAllPlayers(System.Int32)">
+            <summary>
+            Get all players from DB
+            </summary>
+            <param name="nodeId"></param>
+            <returns>List of players</returns>
+        </member>
         <member name="M:UmbracoWeb.Controllers.TeamController.GetPlayerById(System.Int32)">
             <summary>
-            Get Player By ID
+            Get Player By ID from all players
             </summary>
             <exception cref="T:System.Web.Http.HttpResponseException">Not Found</exception>
             <param name="nodeId">Player ID</param>
             <returns>Player Model</returns>
+        </member>
+        <member name="M:UmbracoWeb.Controllers.TeamController.AddNewPlayer(UmbracoWeb.Models.PlayerViewModel)">
+            <summary>
+            Add new player
+            </summary>
+            <param name="newPlayer"></param>
+            <returns>Player model, which was created</returns>
+        </member>
+        <member name="M:UmbracoWeb.Controllers.TeamController.GetTeamPlayers(System.Int32)">
+            <summary>
+            Get all players from the team
+            </summary>
+            <param name="nodeId"></param>
+            <exception cref="T:System.Web.Http.HttpResponseException">Not Found</exception>
+            <returns>List of team players</returns>
+        </member>
+        <member name="M:UmbracoWeb.Controllers.TeamController.GetTeamById(System.Int32)">
+            <summary>
+            get team info by id
+            </summary>
+            <param name="nodeId"></param>
+            <returns></returns>
         </member>
         <member name="M:UmbracoWeb.Controllers.TeamController.IsNodeIdCorrect(System.Int32)">
             <summary>
@@ -36,17 +65,37 @@
         </member>
         <member name="T:UmbracoWeb.Models.PlayerViewModel">
             <summary>
-            
+            player model
             </summary>
         </member>
         <member name="P:UmbracoWeb.Models.PlayerViewModel.Name">
             <summary>
-            
+            player name
             </summary>
         </member>
         <member name="P:UmbracoWeb.Models.PlayerViewModel.Age">
             <summary>
-            
+            player age
+            </summary>
+        </member>
+        <member name="T:UmbracoWeb.Models.TeamViewModel">
+            <summary>
+            team model
+            </summary>
+        </member>
+        <member name="P:UmbracoWeb.Models.TeamViewModel.Name">
+            <summary>
+            team name
+            </summary>
+        </member>
+        <member name="P:UmbracoWeb.Models.TeamViewModel.Stadium">
+            <summary>
+            team stadium name
+            </summary>
+        </member>
+        <member name="P:UmbracoWeb.Models.TeamViewModel.Players">
+            <summary>
+            list of team players
             </summary>
         </member>
     </members>

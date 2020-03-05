@@ -99,6 +99,7 @@ namespace UmbracoWeb.Controllers
             }
 
             var playerContent = Umbraco.Content(nodeId);
+           // var parentInfo = playerContent.Parent;
             if (!IsNodeExists(playerContent))
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -112,6 +113,7 @@ namespace UmbracoWeb.Controllers
 
             return player;
         }
+
         /// <summary>
         /// Add new player
         /// </summary>
@@ -183,6 +185,39 @@ namespace UmbracoWeb.Controllers
         }
 
         /// <summary>
+        /// get team info by id
+        /// </summary>
+        /// <param name="nodeId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetTeamById/{nodeId}")]
+        public TeamViewModel GetTeamById(int nodeId)
+        {
+            //int nodeID = 2068; //Barcelona content
+            if (!IsNodeIdCorrect(nodeId))
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var teamContent = Umbraco.Content(nodeId);
+            if (!IsNodeExists(teamContent))
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            TeamViewModel teamModel = new TeamViewModel()
+            {
+                Name = teamContent.Value(UmbracoAliasConfiguration.Team.TeamName).ToString(),
+                Stadium = teamContent.Value(UmbracoAliasConfiguration.Team.TeamStadium).ToString(),
+                Players = GetTeamPlayers(nodeId).ToList()
+
+            };
+
+            return teamModel;
+        }
+
+
+        /// <summary>
         /// check, if nodeId is above zero
         /// </summary>
         /// <param name="nodeId"></param>
@@ -211,7 +246,7 @@ namespace UmbracoWeb.Controllers
         private IEnumerable<IPublishedContent> GetChildrensByAlias(IPublishedContent parentContent, string childrenAlias)
         {
             IEnumerable<IPublishedContent> contentList = parentContent.Children;
-            if (contentList.Count() != 0)
+            if (contentList.Any()==true)
             {
                 return contentList.Where(x => x.IsDocumentType(childrenAlias));
             }
