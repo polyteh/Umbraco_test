@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UmbracoWeb</name>
+    </assembly>
+    <members>
+        <member name="M:UmbracoWeb.Controllers.TeamController.GetPlayerById(System.Int32)">
+            <summary>
+            Get Player By ID
+            </summary>
+            <exception cref="T:System.Web.Http.HttpResponseException">Not Found</exception>
+            <param name="nodeId">Player ID</param>
+            <returns>Player Model</returns>
+        </member>
+        <member name="M:UmbracoWeb.Controllers.TeamController.IsNodeIdCorrect(System.Int32)">
+            <summary>
+            check, if nodeId is above zero
+            </summary>
+            <param name="nodeId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UmbracoWeb.Controllers.TeamController.IsNodeExists(Umbraco.Core.Models.PublishedContent.IPublishedContent)">
+            <summary>
+            check, if content with specified node exists
+            </summary>
+            <param name="content"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UmbracoWeb.Controllers.TeamController.GetChildrensByAlias(Umbraco.Core.Models.PublishedContent.IPublishedContent,System.String)">
+            <summary>
+            select children from parent by alias
+            </summary>
+            <param name="parentContent"></param>
+            <param name="childrenAlias"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UmbracoWeb.Models.PlayerViewModel">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:UmbracoWeb.Models.PlayerViewModel.Name">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:UmbracoWeb.Models.PlayerViewModel.Age">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>

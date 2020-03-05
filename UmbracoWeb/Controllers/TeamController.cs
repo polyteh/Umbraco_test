@@ -17,7 +17,7 @@ using UmbracoWeb.Models;
 
 namespace UmbracoWeb.Controllers
 {
-    [Route("api/[controller]")]
+    [RoutePrefix("api/footballmanager/team")]
     public class TeamController : UmbracoApiController
     {
         private readonly IContentService _contentService;
@@ -25,14 +25,22 @@ namespace UmbracoWeb.Controllers
         {
             _contentService = Services.ContentService;
         }
+
         [HttpGet]
+        [Route("test/{p}")]
         public string Test(int p)
         {
             int k = p + 1;
             return k.ToString();
         }
 
+        /// <summary>
+        /// Get all players from DB
+        /// </summary>
+        /// <param name="nodeId"></param>
+        /// <returns>List of players</returns>
         [HttpGet]
+        [Route("GetAllPlayers/{nodeId}")]
         public IEnumerable<PlayerViewModel> GetAllPlayers(int nodeId)
         {
             //int nodeID = 2077; //Players content
@@ -71,17 +79,17 @@ namespace UmbracoWeb.Controllers
                 //Debug.WriteLine(item.Value("PlayerName"));
             }
 
-            //return JsonConvert.SerializeObject(allPlayers, Formatting.None);
             return allPlayers;
         }
 
         /// <summary>
-        /// 
+        /// Get Player By ID from all players
         /// </summary>
         /// <exception cref="HttpResponseException">Not Found</exception>
-        /// <param name="nodeId"></param>
-        /// <returns></returns>
+        /// <param name="nodeId">Player ID</param>
+        /// <returns>Player Model</returns>
         [HttpGet]
+        [Route("GetPlayerById/{nodeId}")]
         public PlayerViewModel GetPlayerById(int nodeId)
         {
             //int nodeId = 2084; //Varan
@@ -104,23 +112,76 @@ namespace UmbracoWeb.Controllers
 
             return player;
         }
-
-        [HttpGet]
-        public string AddNewPlayer()
+        /// <summary>
+        /// Add new player
+        /// </summary>
+        /// <param name="newPlayer"></param>
+        /// <returns>Player model, which was created</returns>
+        [HttpPost]
+        [Route("AddNewPlayer/")]
+        public PlayerViewModel AddNewPlayer(PlayerViewModel newPlayer)
         {
             int nodeID = 2077;
-            
+
+            //get node info to add in
             var playersNodeName = Umbraco.Content(nodeID).Name;
             var playersNodeGuid = Umbraco.Content(nodeID).Key;
             GuidUdi currentPageUdi = new GuidUdi(playersNodeName, playersNodeGuid);
+
+            //create content node
             var data = _contentService.CreateContent(playersNodeName, currentPageUdi, UmbracoAliasConfiguration.Player.Alias, 0);
-            data.Name = "Varan";
-            data.SetValue(UmbracoAliasConfiguration.Player.PlayerName, "Rafael Varan");
-            data.SetValue(UmbracoAliasConfiguration.Player.PlayerAge, "27");
+
+            //define properties
+            data.Name = newPlayer.Name;
+            data.SetValue(UmbracoAliasConfiguration.Player.PlayerName, newPlayer.Name);
+            data.SetValue(UmbracoAliasConfiguration.Player.PlayerAge, newPlayer.Age);
+
             _contentService.SaveAndPublish(data);
 
-            return Ok().ToString();
+            return newPlayer;
         }
+
+        /// <summary>
+        /// Get all players from the team
+        /// </summary>
+        /// <param name="nodeId"></param>
+        /// <exception cref="HttpResponseException">Not Found</exception>
+        /// <returns>List of team players</returns>
+        [HttpGet]
+        [Route("GetTeamPlayers/{nodeId}")]
+        public IEnumerable<PlayerViewModel> GetTeamPlayers(int nodeId)
+        {
+            //int nodeID = 2068; //Barcelona content
+
+            if (!IsNodeIdCorrect(nodeId))
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            var teamPlayersContentById = Umbraco.Content(nodeId);
+            if (!IsNodeExists(teamPlayersContentById))
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+            var teamPlayersContent = teamPlayersContentById.Value<IEnumerable<IPublishedContent>>(UmbracoAliasConfiguration.Team.Players).ToList();
+
+            if (teamPlayersContent == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            List<PlayerViewModel> teamPlayersList = new List<PlayerViewModel>();
+            foreach (var player in teamPlayersContent)
+            {
+                teamPlayersList.Add(new PlayerViewModel()
+                {
+                    Name = player.Value(UmbracoAliasConfiguration.Player.PlayerName).ToString(),
+                    Age = Int32.Parse(player.Value(UmbracoAliasConfiguration.Player.PlayerAge).ToString())
+                });
+            }
+            return teamPlayersList;
+        }
+
         /// <summary>
         /// check, if nodeId is above zero
         /// </summary>
@@ -156,6 +217,7 @@ namespace UmbracoWeb.Controllers
             }
             return null;
         }
+
 
     }
 }
